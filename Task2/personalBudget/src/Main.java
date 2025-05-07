@@ -4,9 +4,9 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         Scanner input13 = new Scanner(System.in);
-        List<User> NS = new ArrayList<>();
+        List<User> Users = new ArrayList<>();
         try {
-            File file = new File("NS.txt");
+            File file = new File("Users.txt");
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
@@ -16,7 +16,7 @@ public class Main {
                     String password = parts[1].trim();
                     String email = parts[2].trim();
                     int id = Integer.parseInt(parts[3].trim());
-                    NS.add(new User(username, password, email, id));
+                    Users.add(new User(username, password, email, id));
                 }
             }
             reader.close();
@@ -34,9 +34,9 @@ public class Main {
             input13.nextLine();
 
             if (number == 1) {
-                AuthController.signup(NS, input13);
+                AuthController.signup(Users, input13);
             } else if (number == 2) {
-                loggedInUser = AuthController.login(NS, input13);
+                loggedInUser = AuthController.login(Users, input13);
             }
 
             while (loggedInUser != null) {

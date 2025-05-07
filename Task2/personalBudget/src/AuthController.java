@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class AuthController {
-    public static boolean signup(List<User> NS, Scanner input13) {
+    public static boolean signup(List<User> Users, Scanner input13) {
         System.out.print("Enter your username: ");
         String name1 = input13.nextLine();
 
@@ -16,7 +16,7 @@ class AuthController {
         System.out.print("Enter your email: ");
         String email = input13.nextLine();
 
-        for (User user : NS) {
+        for (User user : Users) {
             if (user.getUsername().equals(name1)) {
                 System.out.println("This username is already taken.");
                 return false;
@@ -32,7 +32,7 @@ class AuthController {
         }
 
         int LID = 0;
-        for (User user : NS) {
+        for (User user : Users) {
             if (user.getUserID() > LID) {
                 LID = user.getUserID();
             }
@@ -40,7 +40,7 @@ class AuthController {
 
         int id = LID + 1;
         User newUser = new User(name1, pass, email, id);
-        NS.add(newUser);
+        Users.add(newUser);
         UserDatabase.Save1(newUser);
         System.out.println("Registration successful! Your ID is: " + id);
         return true;

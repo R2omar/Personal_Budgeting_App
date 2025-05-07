@@ -8,7 +8,7 @@ import java.util.Scanner;
 class UserDatabase {
     public static void Save1(User user) {
         try {
-            FileWriter w = new FileWriter("NS.txt", true);
+            FileWriter w = new FileWriter("Users.txt", true);
             w.write(user.getUsername() + ", " + user.getPassword() + ", " + user.getEmail() + ", " + user.getUserID() + "\n");
             w.close();
         } catch (IOException e) {
@@ -16,8 +16,8 @@ class UserDatabase {
         }
     }
 
-    public static User findByEmail(String email, List<User> NS) {
-        for (User user : NS) {
+    public static User findByEmail(String email, List<User> Users) {
+        for (User user : Users) {
             if (user.getEmail().equals(email)) {
                 return user;
             }
@@ -25,8 +25,8 @@ class UserDatabase {
         return null;
     }
 
-    public static User findById(int id, List<User> NS) {
-        for (User user : NS) {
+    public static User findById(int id, List<User> Users) {
+        for (User user : Users) {
             if (user.getUserID() == id) {
                 return user;
             }
@@ -36,7 +36,7 @@ class UserDatabase {
 
     public static void updatePassword(User userToUpdate, String newPass) {
         try {
-            File f = new File("NS.txt");
+            File f = new File("Users.txt");
             List<String> updatedLines = new ArrayList<>();
             Scanner scanner = new Scanner(f);
 
@@ -51,7 +51,7 @@ class UserDatabase {
             }
             scanner.close();
 
-            FileWriter writer = new FileWriter("NS.txt");
+            FileWriter writer = new FileWriter("Users.txt");
             for (String updatedLine : updatedLines) {
                 writer.write(updatedLine + "\n");
             }
