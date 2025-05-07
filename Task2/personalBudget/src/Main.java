@@ -51,7 +51,35 @@ public class Main {
                 int choice = Integer.parseInt(input13.nextLine());
 
                 switch (choice) {
-                    case 1 : {break;}
+                    case 1 : {boolean income = true;
+                        IncomeRepository db = new IncomeRepository("income.txt");
+                        IncomeController controller = new IncomeController(db);
+                        IncomeMenueView menu = new IncomeMenueView(controller,loggedInUser);
+                        while (income) {
+                            System.out.println("\n------- Income Manager Menu ----");
+                            System.out.println("1. Add Income");
+                            System.out.println("2. View Incomes");
+                            System.out.println("3. Update Income");
+                            System.out.println("4. Delete Income");
+                            System.out.println("5. Exit");
+                            System.out.print("Choose an option (1-5): ");
+
+                            choice = Integer.parseInt(input13.nextLine());
+
+                            switch (choice) {
+                                case 1  : {menu.addIncome();break;}
+                                case 2  : {menu.viewIncomes();break;}
+                                case 3  : {menu.updateIncome();break;}
+                                case 4  : {menu.deleteIncome();break;}
+                                case 5  : {
+                                    income = false;
+                                    System.out.println("Exiting...");
+                                    break;
+                                }
+                                default : System.out.println("Invalid option. Please try again.");
+                            }
+                        }
+                        break;}
                     case 2 : {break;}
                     case 3 : {break;}
                     case 4 : {
