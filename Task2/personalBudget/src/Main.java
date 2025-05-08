@@ -34,9 +34,9 @@ public class Main {
             input13.nextLine();
 
             if (number == 1) {
-                AuthController.signup(Users, input13);
+                AuthController.handleSignup(Users, input13);
             } else if (number == 2) {
-                loggedInUser = AuthController.login(Users, input13);
+                loggedInUser = AuthController.handleLogin(Users, input13);
             }
 
             while (loggedInUser != null) {

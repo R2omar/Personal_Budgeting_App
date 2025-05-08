@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class AuthController {
-    public static boolean signup(List<User> Users, Scanner input13) {
+    public static boolean handleSignup(List<User> Users, Scanner input13) {
         System.out.print("Enter your username: ");
         String name1 = input13.nextLine();
 
@@ -46,7 +46,7 @@ class AuthController {
         return true;
     }
 
-    public static User login(List<User> Users, Scanner input13) {
+    public static User handleLogin(List<User> Users, Scanner input13) {
         System.out.print("Enter your username: ");
         String name2 = input13.nextLine();
         System.out.print("Enter your password: ");
