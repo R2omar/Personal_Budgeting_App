@@ -46,14 +46,14 @@ class AuthController {
         return true;
     }
 
-    public static User login(List<User> NS, Scanner input13) {
+    public static User login(List<User> Users, Scanner input13) {
         System.out.print("Enter your username: ");
         String name2 = input13.nextLine();
         System.out.print("Enter your password: ");
         String pass2 = input13.nextLine();
 
         User cur = null;
-        for (User user : NS) {
+        for (User user : Users) {
             if (user.getUsername().equals(name2)) {
                 cur = user;
                 break;
@@ -87,7 +87,7 @@ class AuthController {
             } else if (choice == 2) {
                 System.out.print("Enter your registered email: ");
                 String em = input13.nextLine();
-                User userToUpdate = UserDatabase.findByEmail(em, NS);
+                User userToUpdate = UserDatabase.findByEmail(em, Users);
                 if (userToUpdate != null) {
                     System.out.print("Enter new password (at least 8 characters): ");
                     String newPass = input13.nextLine();

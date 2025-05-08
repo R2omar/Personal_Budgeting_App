@@ -51,7 +51,8 @@ public class Main {
                 int choice = Integer.parseInt(input13.nextLine());
 
                 switch (choice) {
-                    case 1 : {boolean income = true;
+                    case 1 : {
+                        boolean income = true;
                         IncomeRepository db = new IncomeRepository("income.txt");
                         IncomeController controller = new IncomeController(db);
                         IncomeMenueView menu = new IncomeMenueView(controller,loggedInUser);
@@ -81,7 +82,37 @@ public class Main {
                         }
                         break;}
                     case 2 : {break;}
-                    case 3 : {break;}
+                    case 3 : {
+                        boolean reminder = true;
+                        ReminderDataBase db = new ReminderDataBase("reminders.txt");
+                        ReminderController controller = new ReminderController(db);
+                        ReminderMenuView menu = new ReminderMenuView(controller,loggedInUser);
+                        while (reminder) {
+                            System.out.println("\n====== Expense Manager Menu ======");
+                            System.out.println("1. Set Reminder");
+                            System.out.println("2. View Reminders");
+                            System.out.println("3. Update Reminder");
+                            System.out.println("4. Delete Reminder");
+                            System.out.println("5. Exit");
+                            System.out.print("Choose an option (1-5): ");
+
+                            choice = Integer.parseInt(input13.nextLine());
+
+                            switch (choice) {
+                                case 1  : {menu.addReminder();break;}
+                                case 2  : {menu.viewReminders();break;}
+                                case 3  : {menu.updateReminder();break;}
+                                case 4  : {menu.deleteReminder();break;}
+                                case 5  : {
+                                    reminder = false;
+                                    System.out.println("Exiting...");
+                                    break;
+                                }
+                                default : System.out.println("Invalid option. Please try again.");
+                            }
+                        }
+                        break;
+                    }
                     case 4 : {
                         boolean expense = true;
                         ExpenseDataBase db = new ExpenseDataBase("expenses.txt");
