@@ -3,7 +3,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * Provides a console-based user interface for managing income records.
+ * This class handles user interactions for adding, viewing, updating, and deleting incomes.
+ * @author Kholod Ahmed
+ */
 public class IncomeMenueView {
 
     private final IncomeController controller;
@@ -11,13 +15,23 @@ public class IncomeMenueView {
     private final Scanner scanner;
     private final SimpleDateFormat dateFormat;
 
-    public IncomeMenueView(IncomeController controller,User loggedInUser) {
+    /**
+     * Constructs an IncomeMenueView with the specified controller and user.
+     * @param controller the income controller to handle business logic
+     * @param loggedInUser the currently authenticated user
+     */
+    public IncomeMenueView(IncomeController controller, User loggedInUser) {
         this.controller = controller;
         this.loggedInUser = loggedInUser;
         this.scanner = new Scanner(System.in);
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
+    /**
+     * Guides the user through the process of adding a new income record.
+     * Prompts for amount, source, date, and description, then attempts to save the income.
+     * Handles input validation and displays success/failure messages.
+     */
     public void addIncome() {
         try {
             System.out.print("Enter Amount: ");
@@ -29,12 +43,10 @@ public class IncomeMenueView {
             System.out.print("Enter Date (yyyy-MM-dd): ");
             Date dateReceived = dateFormat.parse(scanner.nextLine());
 
-
-
             System.out.print("Enter Description: ");
             String description = scanner.nextLine();
 
-            Income income = new Income(loggedInUser.getUserID(), amount,Source, dateReceived,  description);
+            Income income = new Income(loggedInUser.getUserID(), amount, Source, dateReceived, description);
             boolean success = controller.addIncome(income);
 
             if (success) {
@@ -47,6 +59,10 @@ public class IncomeMenueView {
         }
     }
 
+    /**
+     * Displays all income records for the logged-in user.
+     * Shows a formatted list of incomes or a message if no incomes are found.
+     */
     public void viewIncomes() {
         try {
             List<Income> Incomes = controller.listIncome(loggedInUser.getUserID());
@@ -54,7 +70,7 @@ public class IncomeMenueView {
                 System.out.println("No incomes found for user.");
             } else {
                 System.out.println("\nIncomes:");
-                for (int i = 0;i < Incomes.toArray().length;i++) {
+                for (int i = 0; i < Incomes.toArray().length; i++) {
                     String eString = "Income{" +
                             "incomeId=" + (i + 1) +
                             ", amount=" + Incomes.get(i).getAmount() +
@@ -70,6 +86,11 @@ public class IncomeMenueView {
         }
     }
 
+    /**
+     * Guides the user through updating an existing income record.
+     * Displays current incomes, allows selection of an income to update,
+     * and provides options to modify different fields of the income.
+     */
     public void updateIncome() {
         try {
             List<Income> Incomes = controller.listIncome(loggedInUser.getUserID());
@@ -109,33 +130,36 @@ public class IncomeMenueView {
                 String choice = scanner.nextLine();
 
                 switch (choice) {
-                    case "1" : {
+                    case "1": {
                         System.out.print("Enter New Amount: ");
                         double amount = Double.parseDouble(scanner.nextLine());
                         found.setAmount(amount);
                         break;
                     }
-                    case "2" : {
+                    case "2": {
                         System.out.print("Enter New Source: ");
                         String Source = scanner.nextLine();
                         found.setSource(Source);
                         break;
                     }
-                    case "3" : {
+                    case "3": {
                         System.out.print("Enter New Date (yyyy-MM-dd): ");
                         Date dateReceived = dateFormat.parse(scanner.nextLine());
                         found.setdateReceived(dateReceived);
                         break;
                     }
-
-                    case "4" : {
+                    case "4": {
                         System.out.print("Enter New Description: ");
                         String description = scanner.nextLine();
                         found.setDescription(description);
                         break;
                     }
-                    case "5" : {updating = false;break;}
-                    default : System.out.println("Invalid option. Try again.");
+                    case "5": {
+                        updating = false;
+                        break;
+                    }
+                    default:
+                        System.out.println("Invalid option. Try again.");
                 }
             }
 
@@ -146,7 +170,11 @@ public class IncomeMenueView {
         }
     }
 
-
+    /**
+     * Guides the user through deleting an income record.
+     * Displays current incomes, allows selection of an income to delete,
+     * and confirms the deletion result.
+     */
     public void deleteIncome() {
         try {
             List<Income> Incomes = controller.listIncome(loggedInUser.getUserID());
@@ -160,7 +188,7 @@ public class IncomeMenueView {
             System.out.print("Enter Incomes ID to delete: ");
             int IncomeId = Integer.parseInt(scanner.nextLine());
 
-            boolean deleted = controller.deleteIncome(loggedInUser.getUserID(), (IncomeId <= Incomes.toArray().length)?Incomes.get(IncomeId - 1).getIncomeId():-1);
+            boolean deleted = controller.deleteIncome(loggedInUser.getUserID(), (IncomeId <= Incomes.toArray().length) ? Incomes.get(IncomeId - 1).getIncomeId() : -1);
             System.out.println(deleted ? "Income deleted." : "Failed to delete Income.");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -1,7 +1,20 @@
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles user authentication processes such as signup and login.
+ * @author Nada Samir
+ */
 class AuthController {
+
+    /**
+     * Handles the signup process by collecting user details, validating them,
+     * checking for duplicates, and saving the new user.
+     *
+     * @param Users   the list of existing users
+     * @param input13 the Scanner object for user input
+     * @return true if signup is successful, false otherwise
+     */
     public static boolean handleSignup(List<User> Users, Scanner input13) {
         System.out.print("Enter your username: ");
         String name1 = input13.nextLine();
@@ -46,6 +59,14 @@ class AuthController {
         return true;
     }
 
+    /**
+     * Handles the login process by verifying credentials and providing options
+     * for retrying or resetting the password if login fails.
+     *
+     * @param Users   the list of existing users
+     * @param input13 the Scanner object for user input
+     * @return the logged-in User object if successful, or null otherwise
+     */
     public static User handleLogin(List<User> Users, Scanner input13) {
         System.out.print("Enter your username: ");
         String name2 = input13.nextLine();

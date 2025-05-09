@@ -4,16 +4,31 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class reminderNotification implements IReminderNotification {
+/**
+ * Implementation of IReminderNotification that handles scheduled reminders and notifications.
+ * Manages reminder scheduling, cancellation, and persistent notification logging.
+ * @author Omar Sayed
+ */
+public class ReminderNotification implements IReminderNotification {
     private ReminderDataBase database;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static final String NOTIFICATION_FOLDER = "users_notifications";
     private final Map<ArrayList<Integer>, Timer> scheduledTimers = new HashMap<>();
-    public reminderNotification(ReminderDataBase database) {
+
+    /**
+     * Constructs a reminderNotification instance and ensures the notification folder exists.
+     * @param database the ReminderDataBase instance to use for persistence
+     */
+    public ReminderNotification(ReminderDataBase database) {
         new File(NOTIFICATION_FOLDER).mkdirs();
         this.database = database;
     }
 
+    /**
+     * Logs a notification message to the user's notification file.
+     * @param userId the ID of the user to notify
+     * @param message the notification message content
+     */
     @Override
     public void notifyUser(int userId, String message) {
         String filename = NOTIFICATION_FOLDER + "/user_" + userId + "_notifications.txt";
@@ -32,7 +47,12 @@ public class reminderNotification implements IReminderNotification {
         }
     }
 
-    public void cancelNotification(int userId,int reminderId) {
+    /**
+     * Cancels a pending reminder notification before it triggers.
+     * @param userId the ID of the user whose reminder should be canceled
+     * @param reminderId the ID of the specific reminder to cancel
+     */
+    public void cancelNotification(int userId, int reminderId) {
         Timer timer = scheduledTimers.get(new ArrayList<Integer>(List.of(userId,reminderId)));
         if (timer != null) {
             timer.cancel();
@@ -40,6 +60,11 @@ public class reminderNotification implements IReminderNotification {
             System.out.println("Cancelled pending notification for user " + userId);
         }
     }
+
+    /**
+     * Schedules a new reminder to trigger at the specified date/time.
+     * @param reminder the Reminder object containing all scheduling details
+     */
     public void scheduleReminder(Reminder reminder) {
         Timer timer = new Timer(true);
         TimerTask task = new TimerTask() {
@@ -53,6 +78,4 @@ public class reminderNotification implements IReminderNotification {
         timer.schedule(task, reminder.getReminderDate());
         scheduledTimers.put(new ArrayList<Integer>(List.of(reminder.getUserId(),reminder.getReminderId())), timer);
     }
-
-
 }

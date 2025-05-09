@@ -3,12 +3,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Provides a console-based user interface for managing reminders.
+ * Handles user interactions for creating, viewing, updating, and deleting reminders.
+ * @author Omar Sayed
+ */
 public class ReminderMenuView {
     private final ReminderController controller;
     private final User loggedInUser;
     private final Scanner scanner;
     private final SimpleDateFormat dateFormat;
 
+    /**
+     * Constructs a ReminderMenuView with the specified controller and user.
+     * @param controller the ReminderController to handle business logic
+     * @param loggedInUser the currently authenticated user
+     */
     public ReminderMenuView(ReminderController controller, User loggedInUser) {
         this.controller = controller;
         this.loggedInUser = loggedInUser;
@@ -16,6 +26,11 @@ public class ReminderMenuView {
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     }
 
+    /**
+     * Guides the user through creating a new reminder.
+     * Prompts for message and date/time, validates future date,
+     * and displays success/error messages.
+     */
     public void addReminder() {
         try {
             System.out.print("Enter Reminder Message: ");
@@ -38,6 +53,10 @@ public class ReminderMenuView {
         }
     }
 
+    /**
+     * Displays all reminders for the logged-in user in a formatted table.
+     * Shows message, due date, and notification status for each reminder.
+     */
     public void viewReminders() {
         try {
             List<Reminder> reminders = controller.listReminders(loggedInUser.getUserID());
@@ -63,6 +82,10 @@ public class ReminderMenuView {
         }
     }
 
+    /**
+     * Guides the user through updating an existing reminder.
+     * Allows modifying either the message or date of a selected reminder.
+     */
     public void updateReminder() {
         try {
             List<Reminder> reminders = controller.listReminders(loggedInUser.getUserID());
@@ -124,7 +147,10 @@ public class ReminderMenuView {
         }
     }
 
-
+    /**
+     * Guides the user through deleting a reminder with confirmation.
+     * Displays the reminder list and prompts for ID before deletion.
+     */
     public void deleteReminder() {
         try {
             List<Reminder> reminders = controller.listReminders(loggedInUser.getUserID());
@@ -160,8 +186,14 @@ public class ReminderMenuView {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    /**
+     * Helper method to truncate long strings with ellipsis.
+     * @param str the string to truncate
+     * @param length the maximum length before truncation
+     * @return the truncated string with ellipsis if needed
+     */
     private String truncate(String str, int length) {
         return str.length() > length ? str.substring(0, length - 3) + "..." : str;
     }
-
 }

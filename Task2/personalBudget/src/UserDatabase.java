@@ -5,7 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Provides operations for saving, searching, and updating users in a text file-based user database.
+ * @author Nada Samir
+ */
 class UserDatabase {
+
+    /**
+     * Saves a user to the "Users.txt" file by appending their information.
+     *
+     * @param user the user to be saved
+     */
     public static void Save1(User user) {
         try {
             FileWriter w = new FileWriter("Users.txt", true);
@@ -16,6 +26,13 @@ class UserDatabase {
         }
     }
 
+    /**
+     * Finds a user in a list by their email address.
+     *
+     * @param email the email to search for
+     * @param Users the list of users to search in
+     * @return the user with the specified email, or null if not found
+     */
     public static User findByEmail(String email, List<User> Users) {
         for (User user : Users) {
             if (user.getEmail().equals(email)) {
@@ -25,6 +42,13 @@ class UserDatabase {
         return null;
     }
 
+    /**
+     * Finds a user in a list by their user ID.
+     *
+     * @param id the user ID to search for
+     * @param Users the list of users to search in
+     * @return the user with the specified ID, or null if not found
+     */
     public static User findById(int id, List<User> Users) {
         for (User user : Users) {
             if (user.getUserID() == id) {
@@ -34,6 +58,12 @@ class UserDatabase {
         return null;
     }
 
+    /**
+     * Updates the password of the specified user in the "Users.txt" file.
+     *
+     * @param userToUpdate the user whose password is to be updated
+     * @param newPass the new password to set
+     */
     public static void updatePassword(User userToUpdate, String newPass) {
         try {
             File f = new File("Users.txt");
