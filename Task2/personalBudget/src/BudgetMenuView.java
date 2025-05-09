@@ -3,13 +3,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Provides a console-based user interface for managing budgets.
+ * Handles user interactions for creating, viewing, updating, and deleting budgets.
+ * @author Kholod Ahmed
+ */
 public class BudgetMenuView {
-
     private final BudgetController controller;
     private final User loggedInUser;
     private final Scanner scanner;
     private final SimpleDateFormat dateFormat;
 
+    /**
+     * Constructs a BudgetMenuView with the specified controller and user.
+     * @param controller the BudgetController to handle business logic
+     * @param loggedInUser the currently authenticated user
+     */
     public BudgetMenuView(BudgetController controller, User loggedInUser) {
         this.controller = controller;
         this.loggedInUser = loggedInUser;
@@ -17,6 +26,10 @@ public class BudgetMenuView {
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
+    /**
+     * Guides the user through creating a new budget.
+     * Prompts for category, amount, and date range, then attempts to save the budget.
+     */
     public void addBudget() {
         try {
             System.out.print("Enter Category: ");
@@ -40,6 +53,10 @@ public class BudgetMenuView {
         }
     }
 
+    /**
+     * Displays all budgets for the logged-in user.
+     * Shows budget details including remaining amount and date range.
+     */
     public void viewBudgets() {
         try {
             List<Budget> budgets = controller.getBudgetSummary(loggedInUser.getUserID());
@@ -51,7 +68,7 @@ public class BudgetMenuView {
             System.out.println("\nBudgets:");
             for (Budget b : budgets) {
                 String bString = "Budget{" +
-                        "budgetId=" + b.getBudgetId() +  // Use actual budgetId
+                        "budgetId=" + b.getBudgetId() +
                         ", category='" + b.getCategory() + '\'' +
                         ", amount=" + b.getAmount() +
                         ", remaining=" + b.getRemaining() +
@@ -65,6 +82,10 @@ public class BudgetMenuView {
         }
     }
 
+    /**
+     * Guides the user through updating an existing budget.
+     * Allows modifying category, amount, or date range of a selected budget.
+     */
     public void updateBudget() {
         try {
             List<Budget> budgets = controller.getBudgetSummary(loggedInUser.getUserID());
@@ -98,7 +119,6 @@ public class BudgetMenuView {
                 String option = scanner.nextLine();
 
                 switch (option) {
-
                     case "1":
                         System.out.print("New Category: ");
                         found.setCategory(scanner.nextLine());
@@ -132,6 +152,10 @@ public class BudgetMenuView {
         }
     }
 
+    /**
+     * Guides the user through deleting a budget.
+     * Displays budgets and prompts for confirmation before deletion.
+     */
     public void deleteBudget() {
         try {
             List<Budget> budgets = controller.getBudgetSummary(loggedInUser.getUserID());
@@ -145,7 +169,6 @@ public class BudgetMenuView {
             System.out.print("Enter Budget ID to delete: ");
             int budgetId = Integer.parseInt(scanner.nextLine());
 
-
             boolean deleted = controller.deleteBudget(loggedInUser.getUserID(),
                     (budgetId >= 1 && budgetId <= budgets.size()) ? budgets.get(budgetId - 1).getBudgetId() : -1);
 
@@ -155,22 +178,10 @@ public class BudgetMenuView {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Guides the user through updating the remaining amount of a budget.
+     * Validates that the deduction doesn't exceed the remaining amount.
+     */
     public void updateremainingBudgets() {
         try {
             List<Budget> budgets = controller.getBudgetSummary(loggedInUser.getUserID());
@@ -209,25 +220,4 @@ public class BudgetMenuView {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
