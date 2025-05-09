@@ -33,6 +33,7 @@ public class ReminderDataBase {
                 Reminder reminder = new Reminder(reminderId, userId, message, reminderDate, isSent);
                 reminders.add(reminder);
             }
+            if(reminders.toArray().length > 0) Reminder.counter = reminders.get(reminders.toArray().length - 1).getReminderId() + 1 ;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +82,7 @@ public class ReminderDataBase {
         for (int i = 0; i < reminders.size(); i++) {
             if (reminders.get(i).getReminderId() == reminderId) {
                 reminders.remove(i);
+                if(reminders.toArray().length > 0) Reminder.counter = reminders.get(reminders.toArray().length - 1).getReminderId() + 1 ;
                 saveToFile();
                 return true;
             }

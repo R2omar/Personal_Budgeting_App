@@ -34,6 +34,7 @@ public class IncomeRepository {
                 Income income = new Income(incomeId,userId, amount, Source, dateReceived, description);
                 Incomes.add(income);
             }
+            if(Incomes.toArray().length > 0) Income.counter = Incomes.get(Incomes.toArray().length - 1).getIncomeId() + 1 ;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +82,7 @@ public class IncomeRepository {
         for (int i = 0; i < Incomes.size(); i++) {
             if (Incomes.get(i).getIncomeId() == incomeId) {
                 Incomes.remove(i);
+                if(Incomes.toArray().length > 0) Income.counter = Incomes.get(Incomes.toArray().length - 1).getIncomeId() + 1 ;
                 saveToFile();
                 return true;
             }

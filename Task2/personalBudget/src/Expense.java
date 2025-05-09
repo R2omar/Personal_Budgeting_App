@@ -9,7 +9,7 @@ public class Expense {
     private Date date;
     private String paymentMethod;
     private String description;
-    private static int  counter = 1;
+    static int  counter = 1;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 

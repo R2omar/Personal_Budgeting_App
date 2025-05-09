@@ -8,7 +8,7 @@ public class Reminder {
     private Date reminderDate;
     private boolean isSent;
 
-    private static int counter = 1;
+    static int counter = 1;
 
     public Reminder(int userId, String message, Date reminderDate) {
         this.reminderId = counter;

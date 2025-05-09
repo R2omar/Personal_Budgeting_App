@@ -8,7 +8,7 @@ public class Income {
     private String Source;
     private Date dateReceived;
     private String description;
-    private static int counter = 1;
+    static int counter = 1;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 

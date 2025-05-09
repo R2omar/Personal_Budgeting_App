@@ -34,6 +34,7 @@ public class ExpenseDataBase {
                 Expense expense = new Expense(expId,userId, amount, category, date,paymentMethod, description);
                 expenses.add(expense);
             }
+           if(expenses.toArray().length > 0) Expense.counter = expenses.get(expenses.toArray().length - 1).getExpenseId() + 1 ;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +82,7 @@ public class ExpenseDataBase {
         for (int i = 0; i < expenses.size(); i++) {
             if (expenses.get(i).getExpenseId() == expenseId) {
                 expenses.remove(i);
+                if(expenses.toArray().length > 0) Expense.counter = expenses.get(expenses.toArray().length - 1).getExpenseId() + 1 ;
                 saveToFile();
                 return true;
             }
