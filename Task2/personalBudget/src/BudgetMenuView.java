@@ -213,7 +213,7 @@ public class BudgetMenuView {
 
             found.setRemaining(newRemaining);
 
-            boolean updated = controller.updateremainingBudgets(found);
+            boolean updated = controller.updateRemainingBudgets(found);
             System.out.println(updated ? "Remaining updated." : "Update failed.");
 
         } catch (Exception e) {

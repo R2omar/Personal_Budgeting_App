@@ -93,7 +93,7 @@ public class BudgetController {
      * @param updatedremaining the Budget object with updated remaining amount
      * @return true if the budget was found and updated, false otherwise
      */
-    public boolean updateremainingBudgets(Budget updatedremaining) {
+    public boolean updateRemainingBudgets(Budget updatedremaining) {
         List<Budget> userBudgets = database.findByUserId(updatedremaining.getUserId());
         for (Budget b : userBudgets) {
             if (b.getBudgetId() == updatedremaining.getBudgetId()) {
