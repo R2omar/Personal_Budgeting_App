@@ -81,7 +81,38 @@ public class Main {
                             }
                         }
                         break;}
-                    case 2 : {break;}
+                    case 2 : {boolean budget = true;
+                        NotificationController notify=new  NotificationController();
+                        BudgetDatabase db = new BudgetDatabase("income.txt");
+                        BudgetController controller = new BudgetController(db,notify);
+                        BudgetMenuView menu = new BudgetMenuView(controller,loggedInUser);
+                        while (budget) {
+                            System.out.println("\n------- Income Manager Menu ----");
+                            System.out.println("1. Add budget");
+                            System.out.println("2. View budget");
+                            System.out.println("3. Update budget");
+                            System.out.println("4. Delete budget");
+                            System.out.println("5. updateRemaining");
+                            System.out.println("6. Exit");
+                            System.out.print("Choose an option (1-5): ");
+
+                            choice = Integer.parseInt(input13.nextLine());
+
+                            switch (choice) {
+                                case 1  : {menu. addBudget();break;}
+                                case 2  : {menu.viewBudgets();break;}
+                                case 3  : {menu.updateBudget();break;}
+                                case 4  : {menu.deleteBudget();break;}
+                                case 5  : {menu.updateremainingBudgets();break;}
+                                case 6 : {
+                                    budget = false;
+                                    System.out.println("Exiting...");
+                                    break;
+                                }
+                                default : System.out.println("Invalid option. Please try again.");
+                            }
+                        }
+                        break;}
                     case 3 : {
                         boolean reminder = true;
                         ReminderDataBase db = new ReminderDataBase("reminders.txt");
