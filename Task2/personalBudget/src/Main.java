@@ -83,7 +83,7 @@ public class Main {
                         break;}
                     case 2 : {boolean budget = true;
                         NotificationController notify=new  NotificationController();
-                        BudgetDatabase db = new BudgetDatabase("income.txt");
+                        BudgetDatabase db = new BudgetDatabase("Budget.txt");
                         BudgetController controller = new BudgetController(db,notify);
                         BudgetMenuView menu = new BudgetMenuView(controller,loggedInUser);
                         while (budget) {
