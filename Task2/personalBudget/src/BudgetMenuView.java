@@ -40,9 +40,16 @@ public class BudgetMenuView {
 
             System.out.print("Enter Start Date (yyyy-MM-dd): ");
             Date startDate = dateFormat.parse(scanner.nextLine());
-
+            if(startDate.before(new Date())){
+                System.out.println("Failed to add budget.(You Should Enter a Valid Date)");
+                return;
+            }
             System.out.print("Enter End Date (yyyy-MM-dd): ");
             Date endDate = dateFormat.parse(scanner.nextLine());
+            if(endDate.before(startDate)){
+                System.out.println("Failed to add budget.(You Should Enter a Valid Date After Start Date)");
+                return;
+            }
 
             Budget budget = new Budget(loggedInUser.getUserID(), category, startDate, endDate, amount);
             boolean success = controller.setBudget(budget);

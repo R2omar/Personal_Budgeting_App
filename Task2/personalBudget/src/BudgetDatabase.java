@@ -124,6 +124,9 @@ public class BudgetDatabase {
         for (int i = 0; i < budgets.size(); i++) {
             if (budgets.get(i).getBudgetId() == budgetId) {
                 budgets.remove(i);
+                if (budgets.toArray().length > 0) {
+                    Budget.counter = budgets.get(budgets.toArray().length - 1).getBudgetId() + 1;
+                }
                 saveToFile();
                 return true;
             }

@@ -30,7 +30,7 @@ public class BudgetController {
         if (budget.getAmount() > 0) {
             boolean saved = database.save(budget);
             if (saved) {
-                notificationController.NotifyUser("A new budget has been created");
+                notificationController.NotifyUser("A new budget has been created\n");
             }
             return saved;
         }
